@@ -32,14 +32,23 @@ public class ComponentProxy<E extends Component> extends AbstractComponent imple
 
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-//            String name = method.getName();
-//            if (!name.equals("isInit") && !name.equals("isActive") && !name.equals("init")) {
-//                if (!delegate.isInit() || !delegate.isActive()) {
-//                    throw new UnsupportedOperationException();
-//                }
-//            }
+            String name = method.getName();
+            if (!name.equals("isInit") && !name.equals("isActive") && !name.equals("init")) {
+                if (!delegate.isInit() || !delegate.isActive()) {
+                    throw new UnsupportedOperationException();
+                }
+            }
             method.setAccessible(true);
             return method.invoke(delegate, args);
         }
     }
+
+    class LoggingHandler implements InvocationHandler {
+
+        @Override
+        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+            return method.invoke(delegate, args);
+        }
+    }
+
 }
