@@ -1,12 +1,13 @@
 package com.erzbir.accountbook.application;
 
-import com.erzbir.accountbook.component.AccountBookManageComponent;
+import com.erzbir.accountbook.component.BillManageComponent;
 import com.erzbir.accountbook.component.LoginComponent;
 import com.erzbir.accountbook.component.RegisterComponent;
 import com.erzbir.accountbook.component.SettingComponent;
 import com.erzbir.accountbook.component.backup.BackupComponent;
 import com.erzbir.accountbook.event.LifeCycleEvent;
 import com.erzbir.accountbook.event.LifeCycleListener;
+import com.erzbir.event.Event;
 
 import java.util.ServiceLoader;
 
@@ -33,8 +34,8 @@ public class DefaultApplication extends AbstractApplication implements Applicati
     }
 
     @Override
-    public void initAccountBookManagerComponent() {
-        delegate.initAccountBookManagerComponent();
+    public void initBillManageComponent() {
+        delegate.initBillManageComponent();
     }
 
     @Override
@@ -48,8 +49,13 @@ public class DefaultApplication extends AbstractApplication implements Applicati
     }
 
     @Override
-    public AccountBookManageComponent getAccountBookManagerComponent() {
-        return delegate.getAccountBookManagerComponent();
+    public void broadcast(Event event) {
+        delegate.broadcast(event);
+    }
+
+    @Override
+    public BillManageComponent getBillManagerComponent() {
+        return delegate.getBillManagerComponent();
     }
 
     @Override

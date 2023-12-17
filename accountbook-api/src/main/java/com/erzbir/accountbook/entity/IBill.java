@@ -4,7 +4,7 @@ package com.erzbir.accountbook.entity;
  * @author Erzbir
  * @Data: 2023/12/13
  */
-public interface IAccountBook {
+public interface IBill {
 
     Integer getId();
 
@@ -18,9 +18,13 @@ public interface IAccountBook {
 
     void setDetail(String detail);
 
-    float getMoney();
+    Float getMoney();
 
-    void setMoney(float money);
+    void setMoney(Float money);
+
+    Long getTime();
+
+    void setTime(Long time);
 
     Boolean isPlus();
 

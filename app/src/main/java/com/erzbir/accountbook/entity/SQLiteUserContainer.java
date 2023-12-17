@@ -21,6 +21,9 @@ public class SQLiteUserContainer implements UserContainer {
 
     @Override
     public void add(IUser user) {
+        if (user.getId() == null || user.getId() == 0) {
+            user.setId(userMap.size() + 1);
+        }
         userMap.put(user.getUsername(), user);
         CompletableFuture.runAsync(() -> userDao.insertAll((User) user));
     }

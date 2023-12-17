@@ -1,6 +1,6 @@
 package com.erzbir.accountbook.application;
 
-import com.erzbir.accountbook.component.AccountBookManageComponent;
+import com.erzbir.accountbook.component.BillManageComponent;
 import com.erzbir.accountbook.component.LoginComponent;
 import com.erzbir.accountbook.component.RegisterComponent;
 import com.erzbir.accountbook.component.SettingComponent;
@@ -17,7 +17,7 @@ import java.util.Set;
  */
 public abstract class AbstractApplication implements Application, ApplicationEventPublisher {
     protected BackupComponent backupComponent;
-    protected AccountBookManageComponent accountBookManageComponent;
+    protected BillManageComponent billManageComponent;
     protected LoginComponent loginComponent;
     protected RegisterComponent registerComponent;
     protected SettingComponent settingComponent;
@@ -31,7 +31,7 @@ public abstract class AbstractApplication implements Application, ApplicationEve
     public void initComponents() {
         initBackupComponent();
         intiSettingComponent();
-        initAccountBookManagerComponent();
+        initBillManageComponent();
         initLoginComponent();
         initRegisterComponent();
     }
@@ -51,8 +51,11 @@ public abstract class AbstractApplication implements Application, ApplicationEve
     }
 
     @Override
-    public AccountBookManageComponent getAccountBookManagerComponent() {
-        return null;
+    public BillManageComponent getBillManagerComponent() {
+        if (!billManageComponent.isInit()) {
+            billManageComponent.init();
+        }
+        return billManageComponent;
     }
 
     @Override
@@ -87,7 +90,7 @@ public abstract class AbstractApplication implements Application, ApplicationEve
 
     public abstract void initBackupComponent();
 
-    public abstract void initAccountBookManagerComponent();
+    public abstract void initBillManageComponent();
 
     public abstract void initLoginComponent();
 

@@ -100,6 +100,13 @@
                 android:textColor="#FF5722"
                 android:textSize="20sp"
                 android:visibility="visible"/>
-<!--                android:onClick="intentRegister"/>-->
+        <CheckBox
+                android:text="记住密码"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignRight="@+id/login"
+                android:gravity="right"
+                android:layout_below="@id/login"
+                android:id="@+id/s_remember"/>
     </RelativeLayout>
 </RelativeLayout>

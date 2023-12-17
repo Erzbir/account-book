@@ -1,9 +1,12 @@
 package com.erzbir.accountbook.application;
 
+import com.erzbir.accountbook.component.DefaultBillManageComponent;
 import com.erzbir.accountbook.component.DefaultLoginComponent;
 import com.erzbir.accountbook.component.DefaultRegisterComponent;
 import com.erzbir.accountbook.event.StartupEvent;
 import com.erzbir.accountbook.event.StopEvent;
+import com.erzbir.context.DefaultApplication;
+import com.erzbir.event.Event;
 
 /**
  * @author Erzbir
@@ -11,6 +14,7 @@ import com.erzbir.accountbook.event.StopEvent;
  */
 public class InternalDefaultApplication extends AbstractApplication implements Application {
     public static final InternalDefaultApplication INSTANCE = new InternalDefaultApplication();
+    private com.erzbir.context.Application application = new DefaultApplication();
 
     @Override
     public void initRegisterComponent() {
@@ -23,8 +27,8 @@ public class InternalDefaultApplication extends AbstractApplication implements A
     }
 
     @Override
-    public void initAccountBookManagerComponent() {
-
+    public void initBillManageComponent() {
+        billManageComponent = new DefaultBillManageComponent();
     }
 
     @Override
@@ -45,5 +49,10 @@ public class InternalDefaultApplication extends AbstractApplication implements A
     @Override
     public void stop() {
         publishEvent(new StopEvent(this));
+    }
+
+    @Override
+    public void broadcast(Event event) {
+        application.broadcastEvent(event);
     }
 }

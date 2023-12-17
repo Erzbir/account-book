@@ -14,12 +14,31 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.Default"
             >
-        <activity
-                android:name=".view.AccessActivity" android:exported="true">
+        <activity android:name=".view.AccessActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+
+        <activity android:name=".view.MainActivity">
+
+        </activity>
+
+        <activity android:name=".activity.AddBillActivity">
+
+        </activity>
+
+        <activity android:name=".view.DetailActivity">
+
+        </activity>
+        
+        <activity android:name=".view.SettingActivity">
+            
+        </activity>
+        
+        <activity android:name=".view.AboutActivity">
+
         </activity>
     </application>
 
