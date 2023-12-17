@@ -1,10 +1,12 @@
 package com.erzbir.accountbook.entity;
 
+import java.io.Serializable;
+
 /**
  * @author Erzbir
  * @Data: 2023/12/13
  */
-public interface IBill {
+public interface IBill extends Serializable {
 
     Integer getId();
 

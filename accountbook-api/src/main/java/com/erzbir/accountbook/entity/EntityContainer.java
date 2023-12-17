@@ -13,6 +13,8 @@ public interface EntityContainer<K, E> {
 
     void remove(K key);
 
+    void update(E e);
+
     boolean contains(E e);
 
     Stream<E> stream();

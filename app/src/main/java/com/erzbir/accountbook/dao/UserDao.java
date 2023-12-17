@@ -1,9 +1,7 @@
 package com.erzbir.accountbook.dao;
 
-import androidx.room.Dao;
-import androidx.room.Delete;
-import androidx.room.Insert;
-import androidx.room.Query;
+import androidx.room.*;
+import com.erzbir.accountbook.entity.Bill;
 import com.erzbir.accountbook.entity.User;
 
 import java.util.List;
@@ -19,6 +17,9 @@ public interface UserDao {
 
     @Query("SELECT * FROM user WHERE username = :username")
     User findByName(String username);
+
+    @Update
+    void update(User user);
 
     @Insert
     void insertAll(User... users);

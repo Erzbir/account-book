@@ -1,9 +1,6 @@
 package com.erzbir.accountbook.dao;
 
-import androidx.room.Dao;
-import androidx.room.Delete;
-import androidx.room.Insert;
-import androidx.room.Query;
+import androidx.room.*;
 import com.erzbir.accountbook.entity.Bill;
 
 import java.util.List;
@@ -19,6 +16,9 @@ public interface BillDao {
 
     @Query("SELECT * FROM bill WHERE id = :id")
     Bill findById(Integer id);
+
+    @Update
+    void update(Bill bill);
 
     @Insert
     void insertAll(Bill... bills);

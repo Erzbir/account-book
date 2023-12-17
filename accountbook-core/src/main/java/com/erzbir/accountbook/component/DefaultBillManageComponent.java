@@ -45,6 +45,11 @@ public class DefaultBillManageComponent extends AbstractComponent implements Bil
     }
 
     @Override
+    public void update(IBill bill) {
+        billContainer.update(bill);
+    }
+
+    @Override
     public void remove(IBill bill) {
         InternalDefaultApplication.INSTANCE.broadcast(new BillDeleteEvent(bill));
         billContainer.remove(bill.getId());

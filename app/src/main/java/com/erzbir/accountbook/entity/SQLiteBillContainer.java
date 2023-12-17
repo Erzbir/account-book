@@ -42,6 +42,12 @@ public class SQLiteBillContainer implements BillContainer {
     }
 
     @Override
+    public void update(IBill bill) {
+        billMap.put(bill.getId(), bill);
+        billDao.update((Bill) bill);
+    }
+
+    @Override
     public boolean contains(IBill bill) {
         return billMap.containsKey(bill.getId());
     }

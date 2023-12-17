@@ -40,6 +40,12 @@ public class SQLiteUserContainer implements UserContainer {
     }
 
     @Override
+    public void update(IUser user) {
+        userMap.put(user.getUsername(), user);
+        userDao.update((User) user);
+    }
+
+    @Override
     public boolean contains(IUser user) {
         return userMap.containsKey(user.getUsername());
     }

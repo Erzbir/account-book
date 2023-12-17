@@ -11,16 +11,17 @@ import com.erzbir.accountbook.AndroidApplication;
 import com.erzbir.accountbook.R;
 import com.erzbir.accountbook.component.BillManageComponent;
 import com.erzbir.accountbook.entity.Bill;
+import com.erzbir.accountbook.view.DetailActivity;
 import com.erzbir.accountbook.view.MainActivity;
 
-public class AddBillActivity extends AppCompatActivity {
+public class EditBillActivity extends AppCompatActivity {
+    private Bill editedBill;
     private Spinner sp_type;
     private EditText et_name;
     private EditText et_money;
     private EditText et_detail;
     private Button bt_confirm;
-    private Button bt_cancel;
-
+    private Button bt_del;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,19 +30,28 @@ public class AddBillActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        setContentView(R.layout.activity_add);
+        setContentView(R.layout.activity_edit);
         et_name = findViewById(R.id.et_name);
         et_money = findViewById(R.id.et_money);
         et_detail = findViewById(R.id.et_detail);
         sp_type = findViewById(R.id.sp_type);
         bt_confirm = findViewById(R.id.bt_confirm);
-        bt_cancel = findViewById(R.id.bt_cancel);
+        bt_del = findViewById(R.id.bt_del);
+        initFromExtra();
+    }
+
+    private void initFromExtra() {
+        editedBill = getIntent().getSerializableExtra("bill", Bill.class);
+        et_name.setText(editedBill.getName());
+        et_money.setText(String.valueOf(editedBill.getMoney()));
+        et_detail.setText(editedBill.getDetail());
+        sp_type.setSelection(editedBill.isPlus() ? 0 : 1);
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
         if (keyCode == KeyEvent.KEYCODE_BACK && keyEvent.getRepeatCount() == 0) {
-            Intent intent = new Intent(AddBillActivity.this, MainActivity.class);
+            Intent intent = new Intent(EditBillActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
         }
@@ -49,13 +59,15 @@ public class AddBillActivity extends AppCompatActivity {
     }
 
     private void initOnClickCallback() {
-        setCancelOnClick();
+        setDeleteOnClick();
         setConfirmOnClick();
     }
 
-    private void setCancelOnClick() {
-        bt_cancel.setOnClickListener(v -> {
-            Intent intent = new Intent(AddBillActivity.this, MainActivity.class);
+    private void setDeleteOnClick() {
+        bt_del.setOnClickListener(v -> {
+            BillManageComponent billManagerComponent = AndroidApplication.INSTANCE.APP.getBillManagerComponent();
+            billManagerComponent.remove(editedBill);
+            Intent intent = new Intent(EditBillActivity.this, DetailActivity.class);
             startActivity(intent);
             finish();
         });
@@ -72,10 +84,11 @@ public class AddBillActivity extends AppCompatActivity {
                     .plus(position == 0)
                     .time(System.currentTimeMillis())
                     .build();
-            billManagerComponent.add(build);
-            Intent intent = new Intent(AddBillActivity.this, AddBillActivity.class);
+            billManagerComponent.update(build);
+            Intent intent = new Intent(EditBillActivity.this, DetailActivity.class);
             startActivity(intent);
             finish();
         });
     }
+
 }

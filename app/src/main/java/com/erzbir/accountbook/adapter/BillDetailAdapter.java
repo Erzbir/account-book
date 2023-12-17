@@ -1,6 +1,8 @@
 package com.erzbir.accountbook.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.erzbir.accountbook.R;
+import com.erzbir.accountbook.activity.EditBillActivity;
 import com.erzbir.accountbook.entity.Bill;
 import org.jetbrains.annotations.NotNull;
 
@@ -35,7 +38,7 @@ public class BillDetailAdapter extends RecyclerView.Adapter<BillDetailAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull BillDetailAdapter.ViewHolder viewHolder, int i) {
-        Bill bill = bills.get(i);
+        final Bill bill = bills.get(i);
         if (bill == null) {
             return;
         }
@@ -46,6 +49,13 @@ public class BillDetailAdapter extends RecyclerView.Adapter<BillDetailAdapter.Vi
         DateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         String formatDate = simpleDateFormat.format(new Date(bill.getId()));
         viewHolder.item_time.setText(formatDate);
+        View editBtn = viewHolder.itemView.findViewById(R.id.bt_billEdit);
+        editBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(context, EditBillActivity.class);
+            intent.putExtra("bill", bill);
+            context.startActivity(intent);
+            ((Activity)context).finish();
+        });
     }
 
     @Override

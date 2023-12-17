@@ -16,6 +16,8 @@ public interface BillManageComponent extends Component {
 
     void addIncome(IBill bill);
 
+    void update(IBill bill);
+
     void remove(IBill bill);
 
     boolean contains(IBill bill);

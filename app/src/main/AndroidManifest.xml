@@ -40,6 +40,10 @@
         <activity android:name=".view.AboutActivity">
 
         </activity>
+
+        <activity android:name=".activity.EditBillActivity">
+
+        </activity>
     </application>
 
 </manifest>

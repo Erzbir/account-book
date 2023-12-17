@@ -126,11 +126,11 @@
                 android:text="确定"
                 android:background="#EEEEEE"/>
         <Button
-                android:id="@+id/bt_cancel"
+                android:id="@+id/bt_del"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="取消"
+                android:text="删除"
                 android:background="#EEEEEE"/>
     </LinearLayout>
 
