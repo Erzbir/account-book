@@ -18,8 +18,6 @@ public class AndroidApplication extends Application {
     public void onCreate() {
         super.onCreate();
         APP.init();
-        DB = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "test").allowMainThreadQueries().build();
     }
 
 }

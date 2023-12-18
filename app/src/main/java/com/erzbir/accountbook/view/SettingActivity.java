@@ -6,10 +6,12 @@ import android.view.KeyEvent;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import com.erzbir.accountbook.R;
+import com.erzbir.accountbook.activity.AccessChangeActivity;
 
 public class SettingActivity extends AppCompatActivity {
 
     private Button bt_about;
+    private Button bt_changeAccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,10 +23,20 @@ public class SettingActivity extends AppCompatActivity {
     private void initView() {
         setContentView(R.layout.activity_setting);
         bt_about = findViewById(R.id.bt_about);
+        bt_changeAccess = findViewById(R.id.bt_changeAccess);
     }
 
     private void initOnClickCallback() {
         setAboutOnClick();
+        setChangeOnClick();
+    }
+
+    private void setChangeOnClick() {
+        bt_changeAccess.setOnClickListener(v -> {
+            Intent intent = new Intent(SettingActivity.this, AccessChangeActivity.class);
+            startActivity(intent);
+            finish();
+        });
     }
 
     private void setAboutOnClick() {

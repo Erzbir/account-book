@@ -3,7 +3,7 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content"
+              android:layout_height="match_parent"
               android:layout_weight="1"
               tools:context=".view.MainActivity">
 
@@ -32,7 +32,7 @@
                   android:layout_height="100dp"
                   android:layout_marginStart="50dp"
                   android:layout_marginEnd="50dp"
-                  android:layout_marginBottom="50dp"
+                  android:layout_marginBottom="20dp"
                   android:background="@drawable/background">
         <LinearLayout android:layout_width="0dp"
                       android:layout_height="match_parent"
@@ -68,20 +68,32 @@
                     android:id="@+id/tv_totalPay"/>
         </LinearLayout>
     </LinearLayout>
-
-    <Button
-            android:text="添加账单"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/bt_addBill"/>
-    <Button
-            android:text="明细"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/bt_detail"/>
-    <Button
-            android:text="设置"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/bt_setting"/>
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginStart="10dp"
+                  android:layout_marginEnd="10dp">
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="20dp"
+                      android:layout_marginBottom="20dp"
+                      android:layout_marginStart="20dp"
+                      android:layout_marginEnd="20dp"
+                      android:orientation="vertical">
+            <Button
+                    android:text="添加账单"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/bt_addBill"/>
+            <Button
+                    android:text="明细"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/bt_detail"/>
+            <Button
+                    android:text="设置"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/bt_setting"/>
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

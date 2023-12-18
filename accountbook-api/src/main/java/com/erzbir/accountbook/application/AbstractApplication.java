@@ -1,9 +1,6 @@
 package com.erzbir.accountbook.application;
 
-import com.erzbir.accountbook.component.BillManageComponent;
-import com.erzbir.accountbook.component.LoginComponent;
-import com.erzbir.accountbook.component.RegisterComponent;
-import com.erzbir.accountbook.component.SettingComponent;
+import com.erzbir.accountbook.component.*;
 import com.erzbir.accountbook.component.backup.BackupComponent;
 import com.erzbir.accountbook.event.LifeCycleEvent;
 import com.erzbir.accountbook.event.LifeCycleListener;
@@ -21,6 +18,7 @@ public abstract class AbstractApplication implements Application, ApplicationEve
     protected LoginComponent loginComponent;
     protected RegisterComponent registerComponent;
     protected SettingComponent settingComponent;
+    protected UserManageComponent userManageComponent;
     protected Set<LifeCycleListenerRegistry> listeners = new LinkedHashSet<>();
 
     @Override
@@ -34,6 +32,7 @@ public abstract class AbstractApplication implements Application, ApplicationEve
         initBillManageComponent();
         initLoginComponent();
         initRegisterComponent();
+        initUserManageComponent();
     }
 
     @Override
@@ -80,13 +79,20 @@ public abstract class AbstractApplication implements Application, ApplicationEve
     }
 
     @Override
+    public UserManageComponent getUserManageComponent() {
+        if (!userManageComponent.isInit()) {
+            userManageComponent.init();
+        }
+        return userManageComponent;
+    }
+
+
+    @Override
     public SettingComponent getSettingComponent() {
         return null;
     }
 
-    public void initRegisterComponent() {
-
-    }
+    public abstract void initRegisterComponent();
 
     public abstract void initBackupComponent();
 
@@ -95,5 +101,7 @@ public abstract class AbstractApplication implements Application, ApplicationEve
     public abstract void initLoginComponent();
 
     public abstract void intiSettingComponent();
+
+    public abstract void initUserManageComponent();
 
 }

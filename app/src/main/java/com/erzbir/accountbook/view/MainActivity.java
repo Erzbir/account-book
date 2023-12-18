@@ -88,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
         bt_addBill.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, AddBillActivity.class);
             startActivity(intent);
-            finish();
         });
     }
 

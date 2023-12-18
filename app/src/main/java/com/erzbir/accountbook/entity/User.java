@@ -56,6 +56,11 @@ public class User implements IUser {
             user = new User();
         }
 
+        public Builder id(Integer id) {
+            user.setId(id);
+            return this;
+        }
+
         public Builder username(String username) {
             user.setUsername(username);
             return this;

@@ -1,8 +1,6 @@
 package com.erzbir.accountbook.application;
 
-import com.erzbir.accountbook.component.DefaultBillManageComponent;
-import com.erzbir.accountbook.component.DefaultLoginComponent;
-import com.erzbir.accountbook.component.DefaultRegisterComponent;
+import com.erzbir.accountbook.component.*;
 import com.erzbir.accountbook.event.StartupEvent;
 import com.erzbir.accountbook.event.StopEvent;
 import com.erzbir.context.DefaultApplication;
@@ -39,6 +37,11 @@ public class InternalDefaultApplication extends AbstractApplication implements A
     @Override
     public void intiSettingComponent() {
 
+    }
+
+    @Override
+    public void initUserManageComponent() {
+        userManageComponent = new DefaultUserManageComponent();
     }
 
     @Override

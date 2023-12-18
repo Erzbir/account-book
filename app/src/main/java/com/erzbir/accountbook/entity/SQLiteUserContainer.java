@@ -42,7 +42,7 @@ public class SQLiteUserContainer implements UserContainer {
     @Override
     public void update(IUser user) {
         userMap.put(user.getUsername(), user);
-        userDao.update((User) user);
+        CompletableFuture.runAsync(() -> userDao.update((User) user));
     }
 
     @Override

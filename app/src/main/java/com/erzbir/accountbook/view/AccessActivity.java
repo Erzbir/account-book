@@ -3,18 +3,17 @@ package com.erzbir.accountbook.view;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 import com.erzbir.accountbook.AndroidApplication;
 import com.erzbir.accountbook.R;
 import com.erzbir.accountbook.component.LoginComponent;
 import com.erzbir.accountbook.component.RegisterComponent;
 import com.erzbir.accountbook.dao.AppDatabase;
+import com.erzbir.accountbook.util.SavedUser;
 import com.erzbir.accountbook.entity.User;
 
 /**
@@ -22,9 +21,7 @@ import com.erzbir.accountbook.entity.User;
  * @Data: 2023/12/13
  */
 public class AccessActivity extends AppCompatActivity {
-    private final static String REM_PASSWORD_KEY = "REM_PASSWORD";
-    private final static String USERNAME_KEY = "USERNAME";
-    private final static String PASSWORD_KEY = "PASSWORD";
+
     private EditText et_usernameE;
     private EditText et_password;
     private Button bt_register;
@@ -35,10 +32,9 @@ public class AccessActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AndroidApplication.INSTANCE.DB = AppDatabase.getInstance(AccessActivity.this);
         initView();
         initOnClickCallback();
-        AndroidApplication.INSTANCE.DB = Room.databaseBuilder(this,
-                AppDatabase.class, "test").allowMainThreadQueries().build();
     }
 
     private void initOnClickCallback() {
@@ -53,12 +49,12 @@ public class AccessActivity extends AppCompatActivity {
         et_usernameE = findViewById(R.id.username);
         et_password = findViewById(R.id.password);
         cb_remember = findViewById(R.id.s_remember);
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(AccessActivity.this);
-        boolean rem = preferences.getBoolean(REM_PASSWORD_KEY, false);
+        SharedPreferences preferences = getSharedPreferences("user", 0);
+        boolean rem = preferences.getBoolean(SavedUser.REM_PASSWORD_KEY, false);
         if (rem) {
             cb_remember.setChecked(true);
-            String username = preferences.getString(USERNAME_KEY, "");
-            String password = preferences.getString(PASSWORD_KEY, "");
+            String username = preferences.getString(SavedUser.USERNAME_KEY, "");
+            String password = AndroidApplication.INSTANCE.APP.getUserManageComponent().getUser(username).getPassword();
             et_usernameE.setText(username);
             et_password.setText(password);
         }
@@ -78,16 +74,16 @@ public class AccessActivity extends AppCompatActivity {
             LoginComponent loginComponent = AndroidApplication.INSTANCE.APP.getLoginComponent();
             User user = new User.Builder().username(et_usernameE.getText().toString()).password(et_password.getText().toString()).build();
             if (loginComponent.login(user)) {
-                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(AccessActivity.this);
+                SharedPreferences preferences = getSharedPreferences("user", 0);
                 SharedPreferences.Editor editor = preferences.edit();
                 if (cb_remember.isChecked()) {
-                    editor.putBoolean(REM_PASSWORD_KEY, true);
-                    editor.putString(USERNAME_KEY, user.getUsername());
-                    editor.putString(PASSWORD_KEY, user.getPassword());
+                    editor.putBoolean(SavedUser.REM_PASSWORD_KEY, true);
+                    editor.putString(SavedUser.USERNAME_KEY, user.getUsername());
                 } else {
                     editor.clear();
                 }
                 editor.apply();
+                SavedUser.setUser(user);
                 Toast.makeText(AccessActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(AccessActivity.this, MainActivity.class);
                 startActivity(intent);

@@ -93,6 +93,11 @@ public class Bill implements IBill {
             bill = new Bill();
         }
 
+        public Builder id(Integer id) {
+            bill.setId(id);
+            return this;
+        }
+
         public Builder name(String name) {
             bill.setName(name);
             return this;

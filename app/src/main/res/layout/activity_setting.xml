@@ -7,6 +7,11 @@
               android:layout_weight="1"
               tools:context=".view.SettingActivity">
     <Button
+            android:text="修改密码"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/bt_changeAccess"/>
+    <Button
             android:text="关于"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -77,14 +77,12 @@ public class EditBillActivity extends AppCompatActivity {
         bt_confirm.setOnClickListener(v -> {
             int position = sp_type.getSelectedItemPosition();
             BillManageComponent billManagerComponent = AndroidApplication.INSTANCE.APP.getBillManagerComponent();
-            Bill build = new Bill.Builder()
-                    .name(et_name.getText().toString())
-                    .money(Float.parseFloat(et_money.getText().toString()))
-                    .detail(et_detail.getText().toString())
-                    .plus(position == 0)
-                    .time(System.currentTimeMillis())
-                    .build();
-            billManagerComponent.update(build);
+            editedBill.setName(et_name.getText().toString());
+            editedBill.setMoney(Float.parseFloat(et_money.getText().toString()));
+            editedBill.setTime(System.currentTimeMillis());
+            editedBill.setPlus(position == 0);
+            editedBill.setDetail(et_detail.getText().toString());
+            billManagerComponent.update(editedBill);
             Intent intent = new Intent(EditBillActivity.this, DetailActivity.class);
             startActivity(intent);
             finish();

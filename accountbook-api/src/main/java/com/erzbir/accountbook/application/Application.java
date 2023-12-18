@@ -1,9 +1,6 @@
 package com.erzbir.accountbook.application;
 
-import com.erzbir.accountbook.component.BillManageComponent;
-import com.erzbir.accountbook.component.LoginComponent;
-import com.erzbir.accountbook.component.RegisterComponent;
-import com.erzbir.accountbook.component.SettingComponent;
+import com.erzbir.accountbook.component.*;
 import com.erzbir.accountbook.component.backup.BackupComponent;
 import com.erzbir.accountbook.event.LifeCycleEvent;
 import com.erzbir.accountbook.event.LifeCycleListener;
@@ -25,6 +22,8 @@ public interface Application extends LifeCycle {
     RegisterComponent getRegisterComponent();
 
     SettingComponent getSettingComponent();
+
+    UserManageComponent getUserManageComponent();
 
     <E extends LifeCycleEvent> void addLifeCycleListener(LifeCycleListener<E> lifeCycleListener, Class<E> eventType);
 
