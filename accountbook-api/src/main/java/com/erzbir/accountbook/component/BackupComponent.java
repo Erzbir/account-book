@@ -1,6 +1,4 @@
-package com.erzbir.accountbook.component.backup;
-
-import com.erzbir.accountbook.component.Component;
+package com.erzbir.accountbook.component;
 
 /**
  * @author Erzbir

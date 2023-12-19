@@ -1,4 +1,4 @@
-package com.erzbir.accountbook.component.proxy;
+package com.erzbir.accountbook.core.component.proxy;
 
 import com.erzbir.accountbook.component.AbstractComponent;
 import com.erzbir.accountbook.component.Component;

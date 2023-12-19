@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public abstract class AbstractComponent implements Component {
     protected AtomicBoolean active = new AtomicBoolean();
     protected AtomicBoolean isInit = new AtomicBoolean();
-    protected com.erzbir.context.Application eventDispatcher = new DefaultApplication();
+    protected com.erzbir.context.Application eventDispatcher = DefaultApplication.INSTANCE;
 
 
     public AbstractComponent() {

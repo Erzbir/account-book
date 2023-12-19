@@ -1,12 +1,13 @@
-package com.erzbir.accountbook.component;
+package com.erzbir.accountbook.core.component;
 
-import com.erzbir.accountbook.application.InternalDefaultApplication;
+import com.erzbir.accountbook.component.AbstractComponent;
+import com.erzbir.accountbook.component.BillManageComponent;
+import com.erzbir.accountbook.core.entity.BillContainerProvider;
 import com.erzbir.accountbook.entity.BillContainer;
-import com.erzbir.accountbook.entity.BillContainerProvider;
 import com.erzbir.accountbook.entity.IBill;
+import com.erzbir.accountbook.event.BillAddEvent;
 import com.erzbir.accountbook.event.BillDeleteEvent;
-import com.erzbir.accountbook.event.BillIncomeEvent;
-import com.erzbir.accountbook.event.BillPayEvent;
+import com.erzbir.accountbook.event.BillUpdateEvent;
 
 import java.util.List;
 
@@ -28,31 +29,31 @@ public class DefaultBillManageComponent extends AbstractComponent implements Bil
 
     private void add0(IBill bill) {
         billContainer.add(bill);
+        broadcastEvent(new BillAddEvent(bill));
     }
 
     @Override
     public void addPay(IBill bill) {
         bill.setPlus(false);
         add0(bill);
-        InternalDefaultApplication.INSTANCE.broadcast(new BillPayEvent(bill));
     }
 
     @Override
     public void addIncome(IBill bill) {
         bill.setPlus(true);
         add0(bill);
-        InternalDefaultApplication.INSTANCE.broadcast(new BillIncomeEvent(bill));
     }
 
     @Override
     public void update(IBill bill) {
         billContainer.update(bill);
+        broadcastEvent(new BillUpdateEvent(bill));
     }
 
     @Override
     public void remove(IBill bill) {
-        InternalDefaultApplication.INSTANCE.broadcast(new BillDeleteEvent(bill));
         billContainer.remove(bill.getId());
+        broadcastEvent(new BillDeleteEvent(bill));
     }
 
     @Override
@@ -67,7 +68,7 @@ public class DefaultBillManageComponent extends AbstractComponent implements Bil
 
     @Override
     public void init() {
-        billContainer = BillContainerProvider.INSTANCE;
+        billContainer = BillContainerProvider.getImpl();
         isInit.set(true);
     }
 }

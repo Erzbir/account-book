@@ -12,6 +12,11 @@
             android:layout_height="wrap_content"
             android:id="@+id/bt_changeAccess"/>
     <Button
+            android:text="备份"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/bt_backup"/>
+    <Button
             android:text="关于"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

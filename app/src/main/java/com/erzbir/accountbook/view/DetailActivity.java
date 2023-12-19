@@ -3,7 +3,6 @@ package com.erzbir.accountbook.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -16,6 +15,10 @@ import com.erzbir.accountbook.entity.Bill;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * @author Erzbir
+ * @Data: 2023/12/13
+ */
 public class DetailActivity extends AppCompatActivity {
     private List<Bill> bills;
     private RecyclerView rv_bills;
@@ -41,6 +44,7 @@ public class DetailActivity extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
         if (keyCode == KeyEvent.KEYCODE_BACK && keyEvent.getRepeatCount() == 0) {
             Intent intent = new Intent(DetailActivity.this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
             finish();
         }

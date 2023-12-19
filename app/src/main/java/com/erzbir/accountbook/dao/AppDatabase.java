@@ -14,19 +14,20 @@ import com.erzbir.accountbook.entity.User;
 @Database(entities = {User.class, Bill.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
     private static volatile AppDatabase INSTANCE;
-    public abstract UserDao userDao();
-
-    public abstract BillDao billDao();
 
     public static AppDatabase getInstance(Context context) {
         if (INSTANCE == null) {
             synchronized (AppDatabase.class) {
                 if (INSTANCE == null) {
-                    INSTANCE =  Room.databaseBuilder(context,
+                    INSTANCE = Room.databaseBuilder(context,
                             AppDatabase.class, "test").allowMainThreadQueries().build();
                 }
             }
         }
         return INSTANCE;
     }
+
+    public abstract UserDao userDao();
+
+    public abstract BillDao billDao();
 }

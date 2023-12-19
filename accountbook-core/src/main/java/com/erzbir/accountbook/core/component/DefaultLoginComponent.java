@@ -1,8 +1,10 @@
-package com.erzbir.accountbook.component;
+package com.erzbir.accountbook.core.component;
 
+import com.erzbir.accountbook.component.AbstractComponent;
+import com.erzbir.accountbook.component.LoginComponent;
+import com.erzbir.accountbook.core.entity.UserContainerProvider;
 import com.erzbir.accountbook.entity.IUser;
 import com.erzbir.accountbook.entity.UserContainer;
-import com.erzbir.accountbook.entity.UserContainerProvider;
 import com.erzbir.accountbook.event.UserLoginEvent;
 
 /**
@@ -24,7 +26,7 @@ public class DefaultLoginComponent extends AbstractComponent implements LoginCom
 
     @Override
     public void init() {
-        userContainer = UserContainerProvider.INSTANCE;
+        userContainer = UserContainerProvider.getImpl();
         isInit.set(true);
     }
 }

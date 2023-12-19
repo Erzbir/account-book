@@ -9,10 +9,14 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.erzbir.accountbook.AndroidApplication;
 import com.erzbir.accountbook.R;
-import com.erzbir.accountbook.util.SavedUser;
 import com.erzbir.accountbook.entity.User;
+import com.erzbir.accountbook.util.SavedUser;
 import com.erzbir.accountbook.view.SettingActivity;
 
+/**
+ * @author Erzbir
+ * @Data: 2023/12/18
+ */
 public class AccessChangeActivity extends AppCompatActivity {
     private Button bt_confirm;
     private Button bt_cancel;

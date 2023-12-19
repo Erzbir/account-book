@@ -6,6 +6,10 @@ import android.view.KeyEvent;
 import androidx.appcompat.app.AppCompatActivity;
 import com.erzbir.accountbook.R;
 
+/**
+ * @author Erzbir
+ * @Data: 2023/12/13
+ */
 public class AboutActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {

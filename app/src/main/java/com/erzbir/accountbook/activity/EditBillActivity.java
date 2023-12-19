@@ -11,17 +11,24 @@ import com.erzbir.accountbook.AndroidApplication;
 import com.erzbir.accountbook.R;
 import com.erzbir.accountbook.component.BillManageComponent;
 import com.erzbir.accountbook.entity.Bill;
+import com.erzbir.accountbook.util.TimeUtil;
 import com.erzbir.accountbook.view.DetailActivity;
 import com.erzbir.accountbook.view.MainActivity;
 
+/**
+ * @author Erzbir
+ * @Data: 2023/12/18
+ */
 public class EditBillActivity extends AppCompatActivity {
     private Bill editedBill;
     private Spinner sp_type;
     private EditText et_name;
     private EditText et_money;
+    private EditText et_time;
     private EditText et_detail;
     private Button bt_confirm;
     private Button bt_del;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +41,7 @@ public class EditBillActivity extends AppCompatActivity {
         et_name = findViewById(R.id.et_name);
         et_money = findViewById(R.id.et_money);
         et_detail = findViewById(R.id.et_detail);
+        et_time = findViewById(R.id.et_time);
         sp_type = findViewById(R.id.sp_type);
         bt_confirm = findViewById(R.id.bt_confirm);
         bt_del = findViewById(R.id.bt_del);
@@ -43,6 +51,7 @@ public class EditBillActivity extends AppCompatActivity {
     private void initFromExtra() {
         editedBill = getIntent().getSerializableExtra("bill", Bill.class);
         et_name.setText(editedBill.getName());
+        et_time.setText(TimeUtil.getFormatTime(editedBill.getTime()));
         et_money.setText(String.valueOf(editedBill.getMoney()));
         et_detail.setText(editedBill.getDetail());
         sp_type.setSelection(editedBill.isPlus() ? 0 : 1);
@@ -79,7 +88,7 @@ public class EditBillActivity extends AppCompatActivity {
             BillManageComponent billManagerComponent = AndroidApplication.INSTANCE.APP.getBillManagerComponent();
             editedBill.setName(et_name.getText().toString());
             editedBill.setMoney(Float.parseFloat(et_money.getText().toString()));
-            editedBill.setTime(System.currentTimeMillis());
+            editedBill.setTime(TimeUtil.getTimestamp(et_time.getText().toString()));
             editedBill.setPlus(position == 0);
             editedBill.setDetail(et_detail.getText().toString());
             billManagerComponent.update(editedBill);

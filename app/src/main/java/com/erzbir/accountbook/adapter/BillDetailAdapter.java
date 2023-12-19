@@ -12,13 +12,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.erzbir.accountbook.R;
 import com.erzbir.accountbook.activity.EditBillActivity;
 import com.erzbir.accountbook.entity.Bill;
+import com.erzbir.accountbook.util.TimeUtil;
 import org.jetbrains.annotations.NotNull;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
+/**
+ * @author Erzbir
+ * @Data: 2023/12/13
+ */
 public class BillDetailAdapter extends RecyclerView.Adapter<BillDetailAdapter.ViewHolder> {
     private Context context;
     private List<Bill> bills;
@@ -39,22 +41,17 @@ public class BillDetailAdapter extends RecyclerView.Adapter<BillDetailAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull @NotNull BillDetailAdapter.ViewHolder viewHolder, int i) {
         final Bill bill = bills.get(i);
-        if (bill == null) {
-            return;
-        }
         viewHolder.item_name.setText(bill.getName());
         viewHolder.item_detail.setText(bill.getDetail());
         viewHolder.item_type.setText(bill.isPlus() ? "收入" : "支出");
         viewHolder.item_money.setText(String.valueOf(bill.getMoney()));
-        DateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        String formatDate = simpleDateFormat.format(new Date(bill.getId()));
-        viewHolder.item_time.setText(formatDate);
+        viewHolder.item_time.setText(TimeUtil.getFormatTime(bill.getTime()));
         View editBtn = viewHolder.itemView.findViewById(R.id.bt_billEdit);
         editBtn.setOnClickListener(v -> {
             Intent intent = new Intent(context, EditBillActivity.class);
             intent.putExtra("bill", bill);
             context.startActivity(intent);
-            ((Activity)context).finish();
+            ((Activity) context).finish();
         });
     }
 
@@ -63,7 +60,7 @@ public class BillDetailAdapter extends RecyclerView.Adapter<BillDetailAdapter.Vi
         return bills.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView item_name;
         TextView item_money;
         TextView item_type;

@@ -13,8 +13,8 @@ import com.erzbir.accountbook.R;
 import com.erzbir.accountbook.component.LoginComponent;
 import com.erzbir.accountbook.component.RegisterComponent;
 import com.erzbir.accountbook.dao.AppDatabase;
-import com.erzbir.accountbook.util.SavedUser;
 import com.erzbir.accountbook.entity.User;
+import com.erzbir.accountbook.util.SavedUser;
 
 /**
  * @author Erzbir
@@ -22,7 +22,7 @@ import com.erzbir.accountbook.entity.User;
  */
 public class AccessActivity extends AppCompatActivity {
 
-    private EditText et_usernameE;
+    private EditText et_username;
     private EditText et_password;
     private Button bt_register;
     private Button bt_login;
@@ -32,6 +32,7 @@ public class AccessActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AndroidApplication.INSTANCE.APP.init();
         AndroidApplication.INSTANCE.DB = AppDatabase.getInstance(AccessActivity.this);
         initView();
         initOnClickCallback();
@@ -46,7 +47,7 @@ public class AccessActivity extends AppCompatActivity {
         setContentView(R.layout.activity_access);
         bt_register = findViewById(R.id.register);
         bt_login = findViewById(R.id.login);
-        et_usernameE = findViewById(R.id.username);
+        et_username = findViewById(R.id.username);
         et_password = findViewById(R.id.password);
         cb_remember = findViewById(R.id.s_remember);
         SharedPreferences preferences = getSharedPreferences("user", 0);
@@ -55,7 +56,7 @@ public class AccessActivity extends AppCompatActivity {
             cb_remember.setChecked(true);
             String username = preferences.getString(SavedUser.USERNAME_KEY, "");
             String password = AndroidApplication.INSTANCE.APP.getUserManageComponent().getUser(username).getPassword();
-            et_usernameE.setText(username);
+            et_username.setText(username);
             et_password.setText(password);
         }
     }
@@ -64,7 +65,7 @@ public class AccessActivity extends AppCompatActivity {
     private void setRegisterOnClick() {
         bt_register.setOnClickListener(view -> {
             RegisterComponent registerComponent = AndroidApplication.INSTANCE.APP.getRegisterComponent();
-            User user = new User.Builder().username("admin").password("123456").build();
+            User user = new User.Builder().username(et_username.getText().toString()).password(et_password.getText().toString()).build();
             registerComponent.register(user);
         });
     }
@@ -72,7 +73,7 @@ public class AccessActivity extends AppCompatActivity {
     private void setLoginOnClick() {
         bt_login.setOnClickListener(view -> {
             LoginComponent loginComponent = AndroidApplication.INSTANCE.APP.getLoginComponent();
-            User user = new User.Builder().username(et_usernameE.getText().toString()).password(et_password.getText().toString()).build();
+            User user = new User.Builder().username(et_username.getText().toString()).password(et_password.getText().toString()).build();
             if (loginComponent.login(user)) {
                 SharedPreferences preferences = getSharedPreferences("user", 0);
                 SharedPreferences.Editor editor = preferences.edit();

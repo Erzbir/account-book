@@ -1,7 +1,6 @@
 package com.erzbir.accountbook.dao;
 
 import androidx.room.*;
-import com.erzbir.accountbook.entity.Bill;
 import com.erzbir.accountbook.entity.User;
 
 import java.util.List;

@@ -8,10 +8,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.erzbir.accountbook.R;
 import com.erzbir.accountbook.activity.AccessChangeActivity;
 
+/**
+ * @author Erzbir
+ * @Data: 2023/12/18
+ */
 public class SettingActivity extends AppCompatActivity {
 
     private Button bt_about;
     private Button bt_changeAccess;
+    private Button bt_backup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +29,7 @@ public class SettingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_setting);
         bt_about = findViewById(R.id.bt_about);
         bt_changeAccess = findViewById(R.id.bt_changeAccess);
+        bt_backup = findViewById(R.id.bt_backup);
     }
 
     private void initOnClickCallback() {

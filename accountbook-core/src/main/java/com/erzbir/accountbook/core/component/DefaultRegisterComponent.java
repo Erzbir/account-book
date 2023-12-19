@@ -1,8 +1,10 @@
-package com.erzbir.accountbook.component;
+package com.erzbir.accountbook.core.component;
 
+import com.erzbir.accountbook.component.AbstractComponent;
+import com.erzbir.accountbook.component.RegisterComponent;
+import com.erzbir.accountbook.core.entity.UserContainerProvider;
 import com.erzbir.accountbook.entity.IUser;
 import com.erzbir.accountbook.entity.UserContainer;
-import com.erzbir.accountbook.entity.UserContainerProvider;
 
 /**
  * @author Erzbir
@@ -13,7 +15,7 @@ public class DefaultRegisterComponent extends AbstractComponent implements Regis
 
     @Override
     public void init() {
-        userContainer = UserContainerProvider.INSTANCE;
+        userContainer = UserContainerProvider.getImpl();
         isInit.set(true);
     }
 

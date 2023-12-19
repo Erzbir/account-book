@@ -29,8 +29,8 @@ public class SQLiteUserContainer implements UserContainer {
     }
 
     @Override
-    public User get(String key) {
-        return (User) userMap.get(key);
+    public IUser get(String key) {
+        return userMap.get(key);
     }
 
     @Override

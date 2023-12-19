@@ -11,14 +11,18 @@ import com.erzbir.accountbook.activity.AddBillActivity;
 import com.erzbir.accountbook.component.BillManageComponent;
 import com.erzbir.accountbook.entity.IBill;
 import com.erzbir.accountbook.event.BillAddEvent;
+import com.erzbir.accountbook.event.BillDeleteEvent;
 import com.erzbir.accountbook.event.BillEvent;
-import com.erzbir.accountbook.event.BillIncomeEvent;
-import com.erzbir.accountbook.event.BillPayEvent;
+import com.erzbir.accountbook.event.BillUpdateEvent;
 import com.erzbir.event.GlobalEventChannel;
 import com.erzbir.event.Listener;
 
 import java.util.List;
 
+/**
+ * @author Erzbir
+ * @Data: 2023/12/13
+ */
 public class MainActivity extends AppCompatActivity {
     private TextView tv_total;
     private TextView tv_totalPay;
@@ -27,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
     private Button bt_detail;
     private Button bt_setting;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,21 +38,23 @@ public class MainActivity extends AppCompatActivity {
         initView();
         initOnClickCallback();
         GlobalEventChannel.INSTANCE.subscribe(BillEvent.class, event -> {
-            String string = tv_total.getText().toString();
-            float old = Float.parseFloat(string);
             IBill source = event.getSource();
-            source.getMoney();
-            Class<? extends BillEvent> aClass = event.getClass();
-            if (BillAddEvent.class.isAssignableFrom(aClass)) {
-                float newTotal = source.getMoney() + old;
-                tv_total.setText(String.valueOf(newTotal));
+            Class<? extends BillEvent> eventClass = event.getClass();
+            if (BillAddEvent.class.equals(eventClass) || BillUpdateEvent.class.equals(eventClass)) {
+                if (source.isPlus()) {
+                    tv_totalIncome.setText(String.valueOf(Float.parseFloat(tv_totalIncome.getText().toString()) + source.getMoney()));
+                } else {
+                    tv_totalPay.setText(String.valueOf(Float.parseFloat(tv_totalPay.getText().toString()) + source.getMoney()));
+                }
             }
-            if (BillPayEvent.class.isAssignableFrom(aClass)) {
-                tv_totalPay.setText(String.valueOf(Float.parseFloat(tv_totalPay.getText().toString()) + source.getMoney()));
+            if (BillDeleteEvent.class.equals(eventClass)) {
+                if (source.isPlus()) {
+                    tv_totalIncome.setText(String.valueOf(Float.parseFloat(tv_totalIncome.getText().toString()) - source.getMoney()));
+                } else {
+                    tv_totalPay.setText(String.valueOf(Float.parseFloat(tv_totalPay.getText().toString()) - source.getMoney()));
+                }
             }
-            if (BillIncomeEvent.class.isAssignableFrom(aClass)) {
-                tv_totalIncome.setText(String.valueOf(Float.parseFloat(tv_totalIncome.getText().toString()) + source.getMoney()));
-            }
+            tv_total.setText(String.valueOf(Float.parseFloat(tv_totalPay.getText().toString()) + Float.parseFloat(tv_totalIncome.getText().toString())));
             return Listener.ListenerStatus.LISTENING;
         });
     }
@@ -95,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
         bt_setting.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, SettingActivity.class);
             startActivity(intent);
-            finish();
         });
     }
 
@@ -103,7 +107,6 @@ public class MainActivity extends AppCompatActivity {
         bt_detail.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, DetailActivity.class);
             startActivity(intent);
-            finish();
         });
     }
 }
