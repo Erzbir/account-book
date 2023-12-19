@@ -32,7 +32,6 @@ public class AccessActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        AndroidApplication.INSTANCE.APP.init();
         AndroidApplication.INSTANCE.DB = AppDatabase.getInstance(AccessActivity.this);
         initView();
         initOnClickCallback();

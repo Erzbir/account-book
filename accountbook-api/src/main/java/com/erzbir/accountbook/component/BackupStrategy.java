@@ -6,4 +6,8 @@ package com.erzbir.accountbook.component;
  */
 public interface BackupStrategy {
     void backup(Object object);
+
+    String getName();
+
+    boolean isEnable();
 }

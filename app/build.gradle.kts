@@ -93,4 +93,7 @@ dependencies {
     runtimeOnly(project(":accountbook-core"))
     implementation(project(":dispatcher-api"))
     runtimeOnly(project(":dispatcher-core"))
+
+    implementation("org.kohsuke:github-api:1.318")
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
 }

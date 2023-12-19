@@ -5,8 +5,14 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
+import com.erzbir.accountbook.AndroidApplication;
 import com.erzbir.accountbook.R;
 import com.erzbir.accountbook.activity.AccessChangeActivity;
+import com.erzbir.accountbook.backup.GithubBackupStrategy;
+import com.erzbir.accountbook.component.BackupComponent;
+import com.erzbir.accountbook.entity.IBill;
+
+import java.util.List;
 
 /**
  * @author Erzbir
@@ -35,6 +41,7 @@ public class SettingActivity extends AppCompatActivity {
     private void initOnClickCallback() {
         setAboutOnClick();
         setChangeOnClick();
+        setBackupOnClick();
     }
 
     private void setChangeOnClick() {
@@ -50,6 +57,15 @@ public class SettingActivity extends AppCompatActivity {
             Intent intent = new Intent(SettingActivity.this, AboutActivity.class);
             startActivity(intent);
             finish();
+        });
+    }
+
+    private void setBackupOnClick() {
+        bt_backup.setOnClickListener(v -> {
+            BackupComponent backupComponent = AndroidApplication.INSTANCE.APP.getBackupComponent();
+            backupComponent.addBackupStrategy(new GithubBackupStrategy());
+            List<IBill> bills = AndroidApplication.INSTANCE.APP.getBillManagerComponent().getBills();
+            backupComponent.backup(bills);
         });
     }
 

@@ -5,7 +5,9 @@ package com.erzbir.accountbook.component;
  * @Data: 2023/12/13
  */
 public interface BackupComponent extends Component {
-    BackupStrategy getBackupStrategy();
+    BackupStrategy getBackupStrategy(String name);
 
-    void setBackupStrategy(BackupStrategy backupStrategy);
+    void addBackupStrategy(BackupStrategy backupStrategy);
+
+    void backup(Object object);
 }

@@ -5,6 +5,7 @@ import com.erzbir.accountbook.component.RegisterComponent;
 import com.erzbir.accountbook.core.entity.UserContainerProvider;
 import com.erzbir.accountbook.entity.IUser;
 import com.erzbir.accountbook.entity.UserContainer;
+import com.erzbir.accountbook.event.UserRegisterEvent;
 
 /**
  * @author Erzbir
@@ -22,6 +23,7 @@ public class DefaultRegisterComponent extends AbstractComponent implements Regis
     @Override
     public boolean register(IUser user) {
         userContainer.add(user);
+        broadcastEvent(new UserRegisterEvent(user));
         return true;
     }
 }

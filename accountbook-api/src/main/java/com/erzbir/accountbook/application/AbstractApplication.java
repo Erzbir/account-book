@@ -56,7 +56,10 @@ public abstract class AbstractApplication implements Application, ApplicationEve
 
     @Override
     public BackupComponent getBackupComponent() {
-        return null;
+        if (!backupComponent.isInit()) {
+            backupComponent.init();
+        }
+        return backupComponent;
     }
 
     @Override
